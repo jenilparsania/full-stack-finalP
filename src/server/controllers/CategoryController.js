@@ -2,17 +2,19 @@ const db = require("../connection");
 
 module.exports = {
     index(req,res){
-        db.query(`SELECT * FROM Category`,(err,results)=>{
+        db.query(`SELECT * FROM categorytable`,(err,results)=>{
             if (err) return res.sendStatus(500);
             return res.send({ category: results });
         });
     },
     store(req, res) {
-        db.query(`INSERT INTO Category (category_name) VALUES (?)`, [req.body.item.category_name], (err, result)=>{
+        console.log(" REQ. BODY => ",req.body)
+        // db.query(`INSERT INTO categorytable (category_name) VALUES (?)`, [req.body.category_name], (err, result)=>{
+        db.query(`INSERT INTO categorytable (category_name) VALUES (?)`, [req.body.category.category_name], (err, result)=>{
             console.log("result: " + JSON.stringify(result));
             if (err) return res.sendStatus(500);
             
-            db.query(`SELECT * FROM category_name`, (err, results)=>{
+            db.query(`SELECT * FROM categorytable`, (err, results)=>{
                 if (err) return res.sendStatus(500);
                 return res.send({ category: results });
             });
