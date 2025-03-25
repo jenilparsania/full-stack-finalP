@@ -5,6 +5,7 @@ import axios from 'axios';
 
 import AddCategoryForm from './components/AddCategoryForm/AddCategoryForm';
 import Table from './components/Table/Table';
+import EditCategoryForm from './components/EditCategoryForm/EditCategoryForm';
 
 
 function App() {
@@ -28,7 +29,7 @@ function App() {
             //need to track the return items in a state variable
             setCategory(res.data.category);
             // setCategory(res.data.entries); would be an error sir 
-            
+
             console.log(category);
             console.log("Response : ",res.data);
         }).catch( err => {
@@ -58,7 +59,7 @@ function App() {
         }).then( res => {
             //console.log(res.data.entries);
             //need to track the return items in a state variable
-            setCategory(res.data.entries);
+            setCategory(res.data.category);
             //console.log(items);
             setSelectedCategory({});
             setEditing(false);
@@ -77,7 +78,7 @@ function App() {
         axios.delete(url,{ 
           category : category
         }).then( res => {
-            setCategory(res.data.entries);
+            setCategory(res.data.category);
         }).catch( err => {
             console.log(err);
         });
@@ -103,7 +104,14 @@ function App() {
 
   return (
     <div className="App">
-      <AddCategoryForm onAddCategory = {_addCategory} />
+        {editing ? 
+            (
+                <EditCategoryForm onUpdateCategory={_updateCategory} category={selectedCategory}/>
+            ): (
+                <AddCategoryForm onAddCategory = {_addCategory} />
+
+            )
+    }
 
       <Table entries={category} onEditCategory={_editCategory} onDeleteCategory={_deleteCategory}/>
     </div>

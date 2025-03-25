@@ -10,7 +10,7 @@ const Table = props => {
 
     const _deleteCategory = category => {
         console.log('Table _deleteItem fired');
-        props.onDeletecategory(category);
+        props.onDeleteCategory(category);
     }
 
     return(
