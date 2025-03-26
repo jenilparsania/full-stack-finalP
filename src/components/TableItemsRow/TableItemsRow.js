@@ -1,6 +1,6 @@
-import './TableRow.css';
+import './TableItemsRow.css'
 
-const TableRow = props => {
+const TableItemsRow = props => {
 
     const _editRowCategory = () => {
         console.log('TableRow _editRowItem fired')
@@ -12,11 +12,16 @@ const TableRow = props => {
     }
 
     return(<tr>
+                <td>{ props.entry.item_id }</td>
+                <td>{ props.entry.title }</td>
+                <td>{ props.entry.description}</td>
+                <td>{ props.entry.price }</td>
+                <td>{ props.entry.quantity }</td>
+                <td>{ props.entry.sku }</td>
                 <td>{ props.entry.category_id }</td>
-                <td>{ props.entry.category_name }</td>
                 
                 <td><button onClick={ _editRowCategory }>Edit</button></td>
                 <td><button onClick={ _deleteRowCategory }>DELETE</button></td>
             </tr>);
 }
-export default TableRow;
+export default TableItemsRow;

@@ -28,7 +28,7 @@ module.exports = {
         db.query(`UPDATE categorytable SET category_name=? WHERE category_id=?`, [req.body.category.category_name, req.params.category], (err, result)=>{
             if (err) return res.sendStatus(500);
             
-            db.query(`SELECT * FROM Categorytable`, (err, results)=>{
+            db.query(`SELECT * FROM categorytable`, (err, results)=>{
                 if (err) return res.sendStatus(500);
                 return res.send({ category: results });
             });
