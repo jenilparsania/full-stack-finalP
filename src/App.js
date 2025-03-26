@@ -9,6 +9,8 @@ import EditCategoryForm from './components/EditCategoryForm/EditCategoryForm';
 import TableRow from './components/TableRow/TableRow';
 import TableItems from './components/TableItems/TableItems';
 import AddItemForm from './components/AddItemForm/AddItemForm';
+import EditItemForm from './components/EditItemForm/EditItemForm';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 
 function App() {
@@ -113,6 +115,50 @@ function App() {
             console.log("err is : "+ err);
         });
     }
+
+    const _deleteItem = item => {
+        console.log('_deleteItem fired');
+        console.log(item);
+        //send item to server via axios
+        //receive new list of items for our Table component 
+
+        const url = `http://127.0.0.1:3001/item/${item.item_id}`;
+        axios.delete(url,{ 
+          item : item
+        }).then( res => {
+            setItem(res.data.item);
+        }).catch( err => {
+            console.log(err);
+        });
+    }
+
+    const _editItem = item => {
+        console.log('_editItem fired');
+        //console.log(item);
+        setSelectedItem(item);
+        setEditingItem(true);
+    }
+
+    const _updateItem = item => {
+        console.log('_updateItem fired');
+        console.log(item);
+        //send item to server via axios
+        //receive new list of items for our Table component 
+
+        const url = `http://127.0.0.1:3001/item/${item.item_id}`;
+        axios.patch(url,{ 
+          item : item
+        }).then( res => {
+            //console.log(res.data.entries);
+            //need to track the return items in a state variable
+            setItem(res.data.item);
+            //console.log(items);
+            setSelectedItem({});
+            setEditingItem(false);
+        }).catch( err => {
+            console.log(err);
+        });
+    }
     
 
     //retrieve the list of all items on load
@@ -139,12 +185,22 @@ function App() {
     useEffect( () => {
         console.log("after updating the category " + category);
     }, [category]);
+
     useEffect( () => {
         console.log("after updating the item " + item);
     }, [item]);
 
   return (
     <div className="App">
+
+        {/* <BrowserRouter>
+            <Routes>
+                <Route path='/' element = {<div> hi </div>}/>
+                <Route path='/item' element = {}/>
+
+            </Routes>
+        
+        </BrowserRouter> */}
         {editing ? 
             (
                 <EditCategoryForm onUpdateCategory={_updateCategory} category={selectedCategory}/>
@@ -154,10 +210,19 @@ function App() {
             )
         }
 
-
       <Table entries={category} onEditCategory={_editCategory} onDeleteCategory={_deleteCategory}/>
-      <AddItemForm onAddItem = {_addItem} />
-      <TableItems  entries={item} onEditCategory={_editCategory} onDeleteCategory={_deleteCategory} />
+
+    
+      {editingItem ?
+        (
+            
+            <EditItemForm onUpdateItem = {_updateItem} item={selectedItem} />
+        ) : (
+            <AddItemForm onAddItem = {_addItem} />
+        )
+        
+        }
+      <TableItems  entries={item} onEditItem={_editItem} onDeleteItem={_deleteItem} />
     </div>
   );
 }

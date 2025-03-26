@@ -4,14 +4,14 @@ import './TableItems.css'
 
 const TableItems = props => {
 
-    const _editCategory = category => {
+    const _editItem = category => {
         console.log('Table _editItem fired');
-        props.onEditCategory(category);
+        props.onEditItem(category);
     }
 
-    const _deleteCategory = category => {
+    const _deleteItem = category => {
         console.log('Table _deleteItem fired');
-        props.onDeleteCategory(category);
+        props.onDeleteItem(category);
     }
 
     return(
@@ -30,7 +30,7 @@ const TableItems = props => {
                 </thead>
                 <tbody>
                 { props.entries.map(
-                    (entry, i) => { return( <TableItemsRow key={i} index={i} entry={entry} onEditCategory = { _editCategory } onDeleteCategory = { _deleteCategory } /> ) }
+                    (entry, i) => { return( <TableItemsRow key={i} index={i} entry={entry} onEditItem = { _editItem } onDeleteItem = { _deleteItem } /> ) }
                     ) 
                 } 
                 </tbody>

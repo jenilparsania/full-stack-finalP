@@ -2,13 +2,13 @@ import './TableItemsRow.css'
 
 const TableItemsRow = props => {
 
-    const _editRowCategory = () => {
+    const _editRowItem = () => {
         console.log('TableRow _editRowItem fired')
-        props.onEditCategory(props.entry);
+        props.onEditItem(props.entry);
     }
-    const _deleteRowCategory = () => {
+    const _deleteRowItem = () => {
         console.log('TableRow _deleteRowItem fired')
-        if (window.confirm('Are you sure you want to delete this Category?')) props.onDeleteCategory(props.entry);
+        if (window.confirm('Are you sure you want to delete this Category?')) props.onDeleteItem(props.entry);
     }
 
     return(<tr>
@@ -20,8 +20,8 @@ const TableItemsRow = props => {
                 <td>{ props.entry.sku }</td>
                 <td>{ props.entry.category_id }</td>
                 
-                <td><button onClick={ _editRowCategory }>Edit</button></td>
-                <td><button onClick={ _deleteRowCategory }>DELETE</button></td>
+                <td><button onClick={ _editRowItem }>Edit</button></td>
+                <td><button onClick={ _deleteRowItem }>DELETE</button></td>
             </tr>);
 }
 export default TableItemsRow;

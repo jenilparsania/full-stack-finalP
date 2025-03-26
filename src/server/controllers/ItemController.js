@@ -21,7 +21,7 @@ module.exports = {
         });
     }, 
     update(req, res) {
-        //console.log(" REQ. BODY => ",req.body)
+        console.log(" REQ. BODY => ",req.body)
         
         db.query(`UPDATE itemtable SET title=?,description=?,price=?,quantity=?,sku=?,category_id=? WHERE item_id=? `, [req.body.item.title,req.body.item.desc,req.body.item.price,req.body.item.quantity,req.body.item.sku,req.body.item.category_id,req.params.item], (err, result)=>{
             console.log("result: " + JSON.stringify(result));
