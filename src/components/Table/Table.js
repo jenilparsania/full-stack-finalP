@@ -17,7 +17,7 @@ const Table = props => {
         <div className='Table-Component'>
             <table style={ {marginTop: '20px', width: '80%', marginLeft: 'auto', marginRight:'auto'} }>
                 <thead>
-                    <tr><th>id</th><th>Category Name</th></tr>
+                    <tr><th>id</th><th>Category Name</th><th>Edit Button</th><th>Delete Button</th></tr>
                 </thead>
                 <tbody>
                 { props.entries.map(

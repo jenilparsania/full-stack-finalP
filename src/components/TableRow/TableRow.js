@@ -16,7 +16,7 @@ const TableRow = props => {
                 <td>{ props.entry.category_name }</td>
                 
                 <td><button onClick={ _editRowCategory }>Edit</button></td>
-                <td><button onClick={ _deleteRowCategory }>DELETE</button></td>
+                <td><button onClick={ _deleteRowCategory }>Delete</button></td>
             </tr>);
 }
 export default TableRow;

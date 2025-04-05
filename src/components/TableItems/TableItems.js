@@ -26,6 +26,8 @@ const TableItems = props => {
                         <th>Quantity</th>
                         <th>SKU</th>
                         <th>Category_ID</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody>

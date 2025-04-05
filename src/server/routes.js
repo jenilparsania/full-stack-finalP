@@ -13,5 +13,6 @@ router.get('/items',ItemController.index);
 router.post('/items',ItemController.store);
 router.patch('/item/:item',ItemController.update);
 router.delete('/item/:item',ItemController.destroy);
+router.get('/getitems',ItemController.getitems);
 
 module.exports = router;

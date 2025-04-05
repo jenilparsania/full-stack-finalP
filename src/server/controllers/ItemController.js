@@ -44,5 +44,17 @@ module.exports = {
             });
         });
     }
+    ,
+    getitems(req,res){
+        db.query(`
+            SELECT itemtable.title, categorytable.category_name AS category, itemtable.description, itemtable.price
+            FROM itemtable
+            JOIN categorytable ON itemtable.category_id = categorytable.category_id
+          `, (err, results) => {
+            if (err) return res.sendStatus(500);
+            return res.json({ item: results });
+          });
+
+    }
 
 };

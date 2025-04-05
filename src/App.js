@@ -20,6 +20,9 @@ function App() {
     const [item, setItem] = useState([]);
     const [selectedItem,setSelectedItem] = useState({});
     const [editingItem,setEditingItem] = useState(false);
+    const [store, setStore] = useState([]);
+
+    
     
 
     // category Category
@@ -180,7 +183,25 @@ function App() {
             console.log(err);
         });
 
+        
+
     }, []);
+
+    useEffect(()=>{
+        const url = "http://127.0.0.1:3001/getitems";
+        axios.get(url).then(res=>{
+            console.log(" RESPONSE DATA " , res.data);
+            
+            setStore(res.data.item);
+            console.log("store=====");
+            console.log(res.data.item);
+            
+            
+        }).catch(err=>{
+            console.log(err);
+            
+        })
+    },[]);
 
     useEffect( () => {
         console.log("after updating the category " + category);
@@ -190,30 +211,96 @@ function App() {
         console.log("after updating the item " + item);
     }, [item]);
 
-  return (
-    <div className="App">
+    // function ItemsMain(){
+    //     {editingItem ?
+    //         (
+                
+    //             <EditItemForm onUpdateItem = {_updateItem} item={selectedItem} />
+    //         ) : (
+    //             <AddItemForm onAddItem = {_addItem} />
+    //         )
+            
+    //         }
+    //       <TableItems  entries={item} onEditItem={_editItem} onDeleteItem={_deleteItem} />
+    // }
 
-        {/* <BrowserRouter>
-            <Routes>
-                <Route path='/' element = {<div> hi </div>}/>
-                <Route path='/item' element = {}/>
-
-            </Routes>
+    function ItemFn(){
+        return(
+            <div>
+                {editingItem ?
+                (
+            
+                <EditItemForm onUpdateItem = {_updateItem} item={selectedItem} />
+                ) : (
+                <AddItemForm onAddItem = {_addItem} />
+                )
         
-        </BrowserRouter> */}
-        {editing ? 
+                }
+                <TableItems  entries={item} onEditItem={_editItem} onDeleteItem={_deleteItem} />
+            </div>
+        )
+    }
+
+    function CategoryFn(){
+        return(<div>
+            {editing ? 
             (
                 <EditCategoryForm onUpdateCategory={_updateCategory} category={selectedCategory}/>
             ): (
                 <AddCategoryForm onAddCategory = {_addCategory} />
 
             )
-        }
+            }
 
-      <Table entries={category} onEditCategory={_editCategory} onDeleteCategory={_deleteCategory}/>
+            <Table entries={category} onEditCategory={_editCategory} onDeleteCategory={_deleteCategory}/>
+
+        </div>)
+    }
+
+    function StoreFront(){
+        return(<div className='Table-Component'>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Category</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        store.map((item,index) => (  // fun fact : if we use {} instead of () here this would not work beacause the way react treats the map fn , I guess , would have to read about it more !
+                            <tr key={index}>
+                                <td> {item.title}</td>
+                                <td> {item.category}</td>
+                                <td> {item.description}</td>
+                                <td> {item.price}</td>
+                            </tr>
+                        ))
+                    }
+                </tbody>
+                
+            </table>
+        </div>)
+    }
+
+  return (
+    <div className="App">
+
+        <BrowserRouter>
+            <Routes>
+                <Route path='/storefront' element = {<StoreFront/>}/>
+                <Route path='/item' element = {<ItemFn/>}/>
+                <Route path='/category' element = {<CategoryFn/>}/>
+
+            </Routes>
+        
+        </BrowserRouter>
+        
 
     
-      {editingItem ?
+      {/* {editingItem ?
         (
             
             <EditItemForm onUpdateItem = {_updateItem} item={selectedItem} />
@@ -222,8 +309,8 @@ function App() {
         )
         
         }
-      <TableItems  entries={item} onEditItem={_editItem} onDeleteItem={_deleteItem} />
-    </div>
+      <TableItems  entries={item} onEditItem={_editItem} onDeleteItem={_deleteItem} /> */}
+    </div> 
   );
 }
 

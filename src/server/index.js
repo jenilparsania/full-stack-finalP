@@ -9,7 +9,7 @@ server.use(cors());
 server.use(express.urlencoded({ extended: false }));
 server.use(express.json());
 
-server.get('/', (req, res) => { res.send("Hello!") });
+// server.get('/', (req, res) => { res.send("Hello!") });
 server.use('/', routes);
 
 server.listen(port, ()=>{
