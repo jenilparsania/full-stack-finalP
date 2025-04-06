@@ -1,6 +1,8 @@
 import './EditItemForm.css'
 import Button from '../Buttons/Button';
 import { useEffect, useState } from 'react';
+import axios from 'axios';
+
 
 
 const EditItemForm = props => {
@@ -11,6 +13,7 @@ const EditItemForm = props => {
     const [quantity,setQuantity] = useState("");
     const [sku,setSKU] = useState("");
     const [category_id,setCategoryID] = useState("");
+    const [categories , setCategories] = useState([]);
     
     const [item,setItem] = useState({});
 
@@ -44,6 +47,16 @@ const EditItemForm = props => {
         setCategoryID(props.item.category_id);
     },[ props])
 
+    useEffect(()=>{
+        const url = "http://127.0.0.1:3001/categories"
+        axios.get(url).then(res=>{
+            setCategories(res.data.category);
+        }).catch(err=>{
+            console.log(err);
+        })
+   
+    })
+
     return(
         <div className='Form'>
             Item Title : 
@@ -61,8 +74,15 @@ const EditItemForm = props => {
             SKU : 
             <input type='text' placeholder='SKU' value={sku} onChange={(e)=> setSKU(e.target.value)} />
             <br/>
-            Category ID : 
-            <input type='text' placeholder='Category ID ' value={category_id} onChange={(e)=> setCategoryID(e.target.value)} />
+            Category :
+            <select value={category_id} onChange={(e)=>setCategoryID(e.target.value)}>
+                <option value=""> Select Category</option>
+                {categories.map((c)=>(
+                    <option value={c.category_id} key={c.category_id}>
+                        {c.category_name}
+                    </option>
+                ))}
+            </select> 
             <br/>
             <Button title="Update Item" onClick={_update} />
 

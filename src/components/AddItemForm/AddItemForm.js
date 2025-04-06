@@ -1,6 +1,7 @@
 import Button from '../Buttons/Button';
 import './AddItemForm.css'
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 
 const AddItemForm = props => {
@@ -10,7 +11,7 @@ const AddItemForm = props => {
     const [quantity,setQuantity] = useState("");
     const [sku,setSKU] = useState("");
     const [category_id,setCategoryID] = useState("");
-    
+    const [categories , setCategories] = useState([]);
     const [item,setItem] = useState({});
 
     const _add = () => {
@@ -32,6 +33,18 @@ const AddItemForm = props => {
 
     },[title,description,price,quantity,sku,category_id])
 
+    useEffect(()=>{
+        const url = "http://127.0.0.1:3001/categories"
+        axios.get(url).then(res=>{
+            console.log();
+            setCategories(res.data.category);
+        }).catch(err=>{
+            console.log(err);
+        })
+
+        
+    })
+
     return(
         <div className='Form'>
             Item Title : 
@@ -49,8 +62,16 @@ const AddItemForm = props => {
             SKU : 
             <input type='text' placeholder='SKU' value={sku} onChange={(e)=> setSKU(e.target.value)} />
             <br/>
-            Category ID : 
-            <input type='text' placeholder='Category ID ' value={category_id} onChange={(e)=> setCategoryID(e.target.value)} />
+            Category  : 
+
+            <select value={category_id} onChange={(e)=>setCategoryID(e.target.value)}>
+                <option value="">Select Category </option>
+                {categories.map((c)=>(
+                    <option key={c.category_id} value={c.category_id}>
+                        {c.category_name}
+                    </option>
+                ))}
+            </select>
             <br/>
             <Button title="Add Item" onClick={_add} />
 

@@ -1,0 +1,11 @@
+.banner{
+    display: flex;
+    justify-content: center; 
+    margin-bottom: 25px;
+}
+
+.banner-img{
+    height: 50vh;
+    width: 70vw;
+    border-radius: 12px;
+}

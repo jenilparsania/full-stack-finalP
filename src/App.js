@@ -6,11 +6,11 @@ import axios from 'axios';
 import AddCategoryForm from './components/AddCategoryForm/AddCategoryForm';
 import Table from './components/Table/Table';
 import EditCategoryForm from './components/EditCategoryForm/EditCategoryForm';
-import TableRow from './components/TableRow/TableRow';
 import TableItems from './components/TableItems/TableItems';
 import AddItemForm from './components/AddItemForm/AddItemForm';
 import EditItemForm from './components/EditItemForm/EditItemForm';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+import Banner from './assets/photo_2.jpg'
 
 
 function App() {
@@ -211,18 +211,7 @@ function App() {
         console.log("after updating the item " + item);
     }, [item]);
 
-    // function ItemsMain(){
-    //     {editingItem ?
-    //         (
-                
-    //             <EditItemForm onUpdateItem = {_updateItem} item={selectedItem} />
-    //         ) : (
-    //             <AddItemForm onAddItem = {_addItem} />
-    //         )
-            
-    //         }
-    //       <TableItems  entries={item} onEditItem={_editItem} onDeleteItem={_deleteItem} />
-    // }
+    
 
     function ItemFn(){
         return(
@@ -259,6 +248,9 @@ function App() {
 
     function StoreFront(){
         return(<div className='Table-Component'>
+            <div className="banner">
+                <img  className="banner-img" src={Banner} alt="https://www.istockphoto.com/photo/pasta-packaging-on-shel-at-store-gm1412238856-461752700?utm_campaign=srp_photos_bottom&utm_content=https%3A%2F%2Funsplash.com%2Fs%2Fphotos%2Fbanner-images-superstore&utm_medium=affiliate&utm_source=unsplash&utm_term=banner+images+superstore%3A%3A%3A"/>
+            </div>
             <table>
                 <thead>
                     <tr>
@@ -289,6 +281,18 @@ function App() {
     <div className="App">
 
         <BrowserRouter>
+            <div style={{marginBottom:'20px'}}>
+                <Link to="/storefront">
+                    <button>Storefront</button>
+                </Link>
+                <Link to="/item">
+                    <button>Item</button>
+                </Link>
+                <Link to="/category">
+                    <button>Category</button>
+                </Link>
+                
+            </div>
             <Routes>
                 <Route path='/storefront' element = {<StoreFront/>}/>
                 <Route path='/item' element = {<ItemFn/>}/>
