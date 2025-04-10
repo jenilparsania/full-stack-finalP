@@ -25,22 +25,17 @@ function App() {
     
     
 
-    // category Category
-    //_addItem to pass into AddForm
+    
     const _addCategory = category => {
         console.log('_addCategory fired');
         console.log(category);
-        //send item to server via axios
-        //receive new list of items for our Table component 
+        
 
         const url = "http://127.0.0.1:3001/categories";
         axios.post(url,{ 
           category : category
         }).then( res => {
-            //console.log(res.data.entries);
-            //need to track the return items in a state variable
             setCategory(res.data.category);
-            // setCategory(res.data.entries); would be an error sir 
 
             console.log(category);
             console.log("Response : ",res.data);
@@ -53,7 +48,6 @@ function App() {
     //_editItem to pass into TABLE to load the selectedItem to be passed into Edit component
     const _editCategory = category => {
         console.log('_editcategory fired');
-        //console.log(item);
         setSelectedCategory(category);
         setEditing(true);
     }
@@ -62,17 +56,14 @@ function App() {
     const _updateCategory = category => {
         console.log('_updatecategory fired');
         console.log(category);
-        //send item to server via axios
-        //receive new list of items for our Table component 
+         
 
         const url = `http://127.0.0.1:3001/category/${category.category_id}`;
         axios.patch(url,{ 
           category : category
         }).then( res => {
-            //console.log(res.data.entries);
-            //need to track the return items in a state variable
+            
             setCategory(res.data.category);
-            //console.log(items);
             setSelectedCategory({});
             setEditing(false);
         }).catch( err => {
@@ -83,8 +74,7 @@ function App() {
     const _deleteCategory = category => {
         console.log('_deletetem fired');
         console.log(category);
-        //send item to server via axios
-        //receive new list of items for our Table component 
+        
 
         const url = `http://127.0.0.1:3001/category/${category.category_id}`;
         axios.delete(url,{ 
@@ -106,13 +96,9 @@ function App() {
         axios.post(url,{ 
           item : item
         }).then( res => {
-            //console.log(res.data.entries);
-            //need to track the return items in a state variable
+            
             setItem(res.data.item);
-            // setCategory(res.data.entries); would be an error sir 
-
-            console.log(item);
-            console.log("Response : ",res.data);
+    
         }).catch( err => {
             
             console.log("err is : "+ err);
@@ -122,8 +108,7 @@ function App() {
     const _deleteItem = item => {
         console.log('_deleteItem fired');
         console.log(item);
-        //send item to server via axios
-        //receive new list of items for our Table component 
+        
 
         const url = `http://127.0.0.1:3001/item/${item.item_id}`;
         axios.delete(url,{ 
@@ -137,7 +122,6 @@ function App() {
 
     const _editItem = item => {
         console.log('_editItem fired');
-        //console.log(item);
         setSelectedItem(item);
         setEditingItem(true);
     }
@@ -145,17 +129,13 @@ function App() {
     const _updateItem = item => {
         console.log('_updateItem fired');
         console.log(item);
-        //send item to server via axios
-        //receive new list of items for our Table component 
-
+       
         const url = `http://127.0.0.1:3001/item/${item.item_id}`;
         axios.patch(url,{ 
           item : item
         }).then( res => {
-            //console.log(res.data.entries);
-            //need to track the return items in a state variable
+            
             setItem(res.data.item);
-            //console.log(items);
             setSelectedItem({});
             setEditingItem(false);
         }).catch( err => {
@@ -193,7 +173,6 @@ function App() {
             console.log(" RESPONSE DATA " , res.data);
             
             setStore(res.data.item);
-            console.log("store=====");
             console.log(res.data.item);
             
             
@@ -201,7 +180,7 @@ function App() {
             console.log(err);
             
         })
-    },[]);
+    },[item]);
 
     useEffect( () => {
         console.log("after updating the category " + category);
@@ -223,7 +202,6 @@ function App() {
                 ) : (
                 <AddItemForm onAddItem = {_addItem} />
                 )
-        
                 }
                 <TableItems  entries={item} onEditItem={_editItem} onDeleteItem={_deleteItem} />
             </div>
@@ -302,18 +280,6 @@ function App() {
         
         </BrowserRouter>
         
-
-    
-      {/* {editingItem ?
-        (
-            
-            <EditItemForm onUpdateItem = {_updateItem} item={selectedItem} />
-        ) : (
-            <AddItemForm onAddItem = {_addItem} />
-        )
-        
-        }
-      <TableItems  entries={item} onEditItem={_editItem} onDeleteItem={_deleteItem} /> */}
     </div> 
   );
 }
